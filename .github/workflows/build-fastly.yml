@@ -1,4 +1,4 @@
-name: Build Fastly Compute package (diagnostic)
+name: Build Fastly Compute package
 on: workflow_dispatch
 
 jobs:
@@ -6,21 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Show repo tree
-        run: |
-          echo "== TREE =="
-          ls -la
-          echo "== SRC =="
-          ls -la src || true
-          echo "== fastly.toml =="
-          cat fastly.toml || true
-          echo "== package.json =="
-          cat package.json || true
-
-      - name: Validate package.json
-        run: |
-          node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json is valid JSON ✅')"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -30,23 +15,22 @@ jobs:
       - name: Install deps
         run: |
           npm ci || npm install
-          node -e "console.log('Node', process.version)"
-          test -f fastly.toml || (echo '❌ fastly.toml missing' && exit 1)
-          test -f src/index.js || (echo '❌ src/index.js missing' && exit 1)
+          test -f fastly.toml || (echo "fastly.toml missing" && exit 1)
+          test -f src/index.js || (echo "src/index.js missing" && exit 1)
+
+      # === FIX PENTING: setup Fastly CLI dulu ===
+      - name: Setup Fastly CLI
+        uses: fastly/compute-actions/setup@v11
+        with:
+          cli_version: latest
 
       - name: Build package (Compute)
         uses: fastly/compute-actions/build@v11
         with:
+          project_directory: ./
           verbose: true
 
-      - name: List pkg/
-        if: always()
-        run: |
-          echo "== PKG DIR =="
-          ls -la pkg || true
-
       - name: Upload artifact
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: fastly-package
