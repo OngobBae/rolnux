@@ -1,12 +1,9 @@
 {
-  "name": "avatar-catalog-proxy",
+  "name": "rolnux-proxy",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
-  "scripts": {
-    "build": "fastly compute build",
-    "deploy": "fastly compute deploy"
-  },
   "dependencies": {
-    "@fastly/js-compute": "latest"
+    "@fastly/js-compute": "^3.8.0"
   }
 }
