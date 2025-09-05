@@ -1,0 +1,19 @@
+name: Build Fastly Compute package
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install deps
+        run: npm ci
+      - name: Build package (Compute)
+        uses: fastly/compute-actions/build@v11
+        with:
+          verbose: true
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fastly-package
+          path: pkg/package.tar.gz
