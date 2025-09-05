@@ -6,14 +6,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install deps
-        run: npm install
+        run: |
+          npm ci || npm install
+          test -f fastly.toml || (echo "fastly.toml missing" && exit 1)
+          test -f src/index.js || (echo "src/index.js missing" && exit 1)
+
       - name: Build package (Compute)
         uses: fastly/compute-actions/build@v11
         with:
           verbose: true
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: fastly-package
-          path: pkg/package.tar.gz
+          path: pkg/*.tar.gz
