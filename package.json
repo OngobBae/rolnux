@@ -1,0 +1,12 @@
+{
+  "name": "avatar-catalog-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "fastly compute build",
+    "deploy": "fastly compute deploy"
+  },
+  "dependencies": {
+    "@fastly/js-compute": "latest"
+  }
+}
