@@ -1,7 +1,5 @@
-# manifest v2 (biarin service_id kosong dulu; nanti keisi saat deploy/link)
 manifest_version = 2
 name = "avatar-catalog-proxy"
 description = "Roblox avatar + catalog proxy (Compute@Edge)"
-authors = ["ikyongob"]
 language = "javascript"
-service_id = ""
+service_id = ""   # bisa dikosongkan, nanti link saat deploy
