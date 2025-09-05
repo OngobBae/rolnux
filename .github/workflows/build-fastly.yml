@@ -17,6 +17,7 @@ jobs:
           npm ci || npm install
           test -f fastly.toml || (echo "fastly.toml missing" && exit 1)
           test -f src/index.js || (echo "src/index.js missing" && exit 1)
+          cat fastly.toml
 
       - name: Build package (Compute)
         uses: fastly/compute-actions/build@v11
