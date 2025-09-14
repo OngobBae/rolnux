@@ -8,7 +8,7 @@ import { CacheOverride } from "fastly:cache-override";
  * Saran: pindahkan APP_KEY ke Secret Store Fastly untuk produksi.
  */
 const APP_KEY = "key-227014-xyz";
-const PROXY_ID = "p1";
+const PROXY_ID = "p2";
 
 /* ====== Tuning Cache (disarankan untuk ramai) ======
    Avatar rig/info: relatif stabil → TTL lebih panjang
@@ -185,3 +185,4 @@ async function handle(event) {
     ]
   }, 400);
 }
+
