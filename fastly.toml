@@ -1,4 +1,3 @@
 manifest_version = 2
-name = "rolnux-proxy"
-description = "Roblox avatar+catalog proxy (Compute@Edge)"
+name = "roblox-proxy-p1"
 language = "javascript"
